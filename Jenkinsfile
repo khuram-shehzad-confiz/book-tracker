@@ -21,5 +21,16 @@ pipeline {
                 
             }
         }
+      
+      stage ('docker image ') {
+            steps {
+                echo 'This is a docker image  pipeline.'
+                sh '''
+                docker build -t poc/spring-test .
+                
+                '''
+                
+            }
+        }
     }
 }
