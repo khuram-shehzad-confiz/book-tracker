@@ -5,6 +5,10 @@ pipeline {
         jdk 'jdk8' 
         docker 'Docker-latest'
     }
+    environment {
+  VERSION = "env.BUILD_ID"
+}
+
     stages {
         stage ('Initialize') {
             steps {
@@ -27,7 +31,7 @@ pipeline {
             steps {
                 echo 'This is a docker image  pipeline.'
                 sh '''
-                docker build -t poc/spring-test .
+                docker build -t poc/spring-test:${VERSION} .
                 
                 '''
                 
