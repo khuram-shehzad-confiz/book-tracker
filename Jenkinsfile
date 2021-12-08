@@ -3,6 +3,7 @@ pipeline {
     tools { 
         maven 'Maven 3.8.4' 
         jdk 'jdk8' 
+        dokcerHome 'myDocker'
     }
     environment {
   VERSION = "env.BUILD_ID"
@@ -13,7 +14,8 @@ pipeline {
             steps {
                 sh '''
                     echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
+                    echo "M2_HOME = ${M2_HOME}" 
+                    
                 ''' 
             }
         }
