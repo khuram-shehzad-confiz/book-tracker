@@ -3,7 +3,7 @@ pipeline {
     tools { 
         maven 'Maven 3.8.4' 
         jdk 'jdk8' 
-        dokcerHome 'myDocker'
+        dockerTool 'myDocker'
     }
     environment {
   VERSION = "env.BUILD_ID"
