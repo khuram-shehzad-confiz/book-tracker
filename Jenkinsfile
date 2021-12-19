@@ -1,9 +1,9 @@
 pipeline {
     agent any
     tools { 
-        maven 'Maven 3.8.4' 
+        maven 'maven' 
         jdk 'jdk8' 
-        dockerTool 'myDocker'
+        dockerTool 'docker'
     }
     environment {
   VERSION = "env.BUILD_ID"
