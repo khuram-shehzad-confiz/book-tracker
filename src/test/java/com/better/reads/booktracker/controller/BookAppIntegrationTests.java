@@ -1,46 +1,54 @@
 package com.better.reads.booktracker.controller;
 
 import com.better.reads.booktracker.model.Book;
-import com.better.reads.booktracker.service.BookService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.better.reads.booktracker.repository.BookRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@WebMvcTest
-public class BookControllerTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+public class BookAppIntegrationTests {
 
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private BookRepository bookRepository;
 
-    @MockBean
-    BookService bookService;
+    @AfterEach
+    public void init() {
+        bookRepository.deleteAll();
+    }
 
     @Test
     public void test_fetch_book_in_db_success() throws Exception {
         List<Book> books = new ArrayList<>();
-        books.add(new Book(1, "test book1", "test author", 120L));
-        books.add(new Book(2, "test book2", "test author", 220L));
-        books.add(new Book(3, "test book3", "test author", 320L));
-        Mockito.when(bookService.getAllBooks()).thenReturn(books);
+        books.add(new Book( "test book1", "test author", 120L));
+        books.add(new Book( "test book2", "test author", 220L));
+        books.add(new Book( "test book3", "test author", 320L));
+        bookRepository.saveAll(books);
+
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/book"));
 
@@ -48,8 +56,8 @@ public class BookControllerTest {
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("[{}, {}, {}]"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]bookid").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]bookName").value("test book1"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]bookid").value(books.get(0).getBookid()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]bookName").value(books.get(0).getBookName()));
     }
 
     @Test
@@ -65,10 +73,15 @@ public class BookControllerTest {
 
     @Test
     public void test_update_book() throws Exception {
+        Book  book = new Book("test book", "test author", 120L);
+        bookRepository.save(book);
+
+        //update book fields
+        book.setBookName("test book update");
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.put("/book")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(new Book(1, "test book update", "test author", 120L)))
+                        .content(objectMapper.writeValueAsString(book))
         );
         resultActions.andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -77,16 +90,17 @@ public class BookControllerTest {
 
     @Test
     public void test_find_book_by_id() throws Exception {
-        Mockito.when(bookService.getBooksById(Mockito.anyLong()))
-                .thenReturn(java.util.Optional.of(new Book(1, "test book", "testAuthor", 120L)));
+        Book  book = new Book("test book", "test author", 120L);
+        bookRepository.save(book);
+
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.get("/book/{bookid}", 1L)
+                MockMvcRequestBuilders.get("/book/{bookid}", book.getBookid())
                         .contentType(MediaType.APPLICATION_JSON)
         );
         resultActions
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.bookid").value(1));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value(book.getAuthor()));
     }
 
     @Test
@@ -102,8 +116,11 @@ public class BookControllerTest {
 
     @Test
     public void test_delete_book() throws Exception {
+        Book  book = new Book("test book", "test author", 120L);
+        bookRepository.save(book);
+
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.delete("/book/{bookid}", 1L)
+                MockMvcRequestBuilders.delete("/book/{bookid}", book.getBookid())
                         .contentType(MediaType.APPLICATION_JSON)
         );
 
