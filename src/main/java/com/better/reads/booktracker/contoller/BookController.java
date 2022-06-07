@@ -16,11 +16,6 @@ public class BookController {
     @Autowired
     BookService booksService;
 
-    @GetMapping("/test")
-    public String test() {
-        return "success";
-    }
-
     @GetMapping("/book")
     private ResponseEntity<List<Book>> getAllBooks() {
         try {
