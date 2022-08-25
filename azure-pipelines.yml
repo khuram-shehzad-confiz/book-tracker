@@ -31,3 +31,9 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop-build'
     publishLocation: 'Container'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'my docker hub'
+    repository: 'book-tracker'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
