@@ -21,16 +21,16 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-- task: CopyFiles@2
-  # displayName:''
-  inputs:
-    Contents: '**/target/*.?(war|jar)'
-    TargetFolder: $(build.artifactstagingdirectory)
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop-build'
-    publishLocation: 'Container'
+# - task: CopyFiles@2
+#   # displayName:''
+#   inputs:
+#     Contents: '**/target/*.?(war|jar)'
+#     TargetFolder: $(build.artifactstagingdirectory)
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop-build'
+#     publishLocation: 'Container'
 - task: Docker@2
   displayName: login docker
   inputs:
