@@ -21,11 +21,11 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-# - task: CopyFiles@2
-#   # displayName:''
-#   inputs:
-#     Contents: '**/target/*.?(war|jar)'
-#     TargetFolder: $(build.artifactstagingdirectory)
+- task: CopyFiles@2
+  # displayName:''
+  inputs:
+    Contents: '**/target/*.?(war|jar)'
+    TargetFolder: $(build.artifactstagingdirectory)
 # - task: PublishBuildArtifacts@1
 #   inputs:
 #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -43,3 +43,9 @@ steps:
 #     repository: 'khuramshah/book-tracker'
 #     command: 'buildAndPush'
 #     Dockerfile: '**/Dockerfile'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'khuramshah89 docker hub'
+    repository: 'khuramshah/book-tracker'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
