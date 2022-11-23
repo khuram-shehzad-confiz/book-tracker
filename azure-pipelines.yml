@@ -31,15 +31,15 @@ steps:
 #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 #     ArtifactName: 'drop-build'
 #     publishLocation: 'Container'
-- task: Docker@2
-  displayName: login docker
-  inputs:
-    containerRegistry: 'my docker hub'
-    command: 'login'
-- task: Docker@2
-  displayName: build and Push image
-  inputs:
-    containerRegistry: 'my docker hub'
-    repository: 'khuramshah/book-tracker'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+# - task: Docker@2
+#   displayName: login docker
+#   inputs:
+#     containerRegistry: 'my docker hub'
+#     command: 'login'
+# - task: Docker@2
+#   displayName: build and Push image
+#   inputs:
+#     containerRegistry: 'my docker hub'
+#     repository: 'khuramshah/book-tracker'
+#     command: 'buildAndPush'
+#     Dockerfile: '**/Dockerfile'
