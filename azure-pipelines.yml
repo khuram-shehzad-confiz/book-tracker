@@ -26,11 +26,11 @@ steps:
   inputs:
     Contents: '**/target/*.?(war|jar)'
     TargetFolder: $(build.artifactstagingdirectory)
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#     ArtifactName: 'drop-build'
-#     publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop-build'
+    publishLocation: 'Container'
 # - task: Docker@2
 #   displayName: login docker
 #   inputs:
@@ -39,13 +39,7 @@ steps:
 # - task: Docker@2
 #   displayName: build and Push image
 #   inputs:
-#     containerRegistry: 'my docker hub'
+#     containerRegistry: 'khuramshah89 docker hub'
 #     repository: 'khuramshah/book-tracker'
 #     command: 'buildAndPush'
 #     Dockerfile: '**/Dockerfile'
-- task: Docker@2
-  inputs:
-    containerRegistry: 'khuramshah89 docker hub'
-    repository: 'khuramshah/book-tracker'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
