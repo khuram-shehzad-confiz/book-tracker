@@ -6,6 +6,9 @@
 trigger:
 - master
 
+variables:
+  tag: '$(Build.BuildId)'
+
 pool:
   vmImage: ubuntu-latest
 
@@ -21,10 +24,19 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+- task: Docker@2
+  displayName: build and Push image
+  inputs:
+    containerRegistry: 'khuramshah89 docker hub'
+    repository: 'khuramshah/book-tracker'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      $(tag)
 - task: CopyFiles@2
   # displayName:''
   inputs:
-    Contents: '**/target/*.?(war|jar)'
+    Contents: '*.yaml'
     TargetFolder: $(build.artifactstagingdirectory)
 - task: PublishBuildArtifacts@1
   inputs:
@@ -36,10 +48,3 @@ steps:
 #   inputs:
 #     containerRegistry: 'my docker hub'
 #     command: 'login'
-# - task: Docker@2
-#   displayName: build and Push image
-#   inputs:
-#     containerRegistry: 'khuramshah89 docker hub'
-#     repository: 'khuramshah/book-tracker'
-#     command: 'buildAndPush'
-#     Dockerfile: '**/Dockerfile'
