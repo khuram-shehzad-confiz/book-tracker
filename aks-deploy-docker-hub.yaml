@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-angular-app
-          image: khuramshah/book-tracker:11
+          image: khuramshah/book-tracker:14
           imagePullPolicy: Always
           ports:
             - containerPort: 8085
