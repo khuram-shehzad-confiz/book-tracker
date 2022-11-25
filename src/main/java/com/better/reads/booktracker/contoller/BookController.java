@@ -16,6 +16,10 @@ public class BookController {
     @Autowired
     BookService booksService;
 
+    @GetMapping()
+    public String tet(){
+        return "Application running ......";
+    }
     @GetMapping("/book")
     private ResponseEntity<List<Book>> getAllBooks() {
         try {
