@@ -57,11 +57,13 @@ steps:
     buildVersionToDownload: 'latest'
     downloadType: 'specific'
     downloadPath: '$(System.ArtifactsDirectory)'
-- task: Kubernetes@0
-  displayName: 'kubectl apply'
+- task: Kubernetes@1
   inputs:
-    kubernetesServiceConnection: 'k8sServiceConnection poc'
-    namespace: default
-    command: apply
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceEndpoint: 'k8sServiceConnection poc'
+    namespace: 'default'
+    command: 'apply'
     useConfigurationFile: true
     configuration: '$(System.DefaultWorkingDirectory)/_khuram-shehzad-confiz.book-tracker/drop-build/aks-deploy-docker-hub.yaml'
+    secretType: 'dockerRegistry'
+    containerRegistryType: 'Azure Container Registry'
