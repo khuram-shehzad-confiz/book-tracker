@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-ak-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: angular-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-angular-app
-          image: khuramshah/book-tracker:21
+          image: khuramshah/book-tracker:22
           imagePullPolicy: Always
           ports:
             - containerPort: 8085
