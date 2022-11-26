@@ -18,7 +18,7 @@ public class BookController {
 
     @GetMapping("/")
     public String tet(){
-        return "Application running ......";
+        return "Application running ...... :) ";
     }
     @GetMapping("/book")
     private ResponseEntity<List<Book>> getAllBooks() {
