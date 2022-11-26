@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-angular-app
-          image: khuramshah/book-tracker:18
+          image: khuramshah/book-tracker:20
           imagePullPolicy: Always
           ports:
             - containerPort: 8085
@@ -29,7 +29,7 @@ spec:
     app: angular-app
   ports:
     - protocol: TCP
-      port: 8085
+      port: 8080
       targetPort: 8085
   type: LoadBalancer
 #apiVersion: v1
