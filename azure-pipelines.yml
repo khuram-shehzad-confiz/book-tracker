@@ -48,6 +48,15 @@ steps:
 #   inputs:
 #     containerRegistry: 'my docker hub'
 #     command: 'login'
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'specific'
+    project: '44d207d5-7d79-4b2c-badc-a4913b3a88b2'
+    pipeline: '1'
+    specificBuildWithTriggering: true
+    buildVersionToDownload: 'latest'
+    downloadType: 'specific'
+    downloadPath: '$(System.ArtifactsDirectory)'
 - task: Kubernetes@0
   displayName: 'kubectl apply'
   inputs:
