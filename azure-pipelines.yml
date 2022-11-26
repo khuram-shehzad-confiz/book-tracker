@@ -48,3 +48,11 @@ steps:
 #   inputs:
 #     containerRegistry: 'my docker hub'
 #     command: 'login'
+- task: Kubernetes@0
+  displayName: 'kubectl apply'
+  inputs:
+    kubernetesServiceConnection: 'k8sServiceConnection poc'
+    namespace: default
+    command: apply
+    useConfigurationFile: true
+    configuration: '$(System.DefaultWorkingDirectory)/_khuram-shehzad-confiz.book-tracker/drop-build/aks-deploy-docker-hub.yaml'
