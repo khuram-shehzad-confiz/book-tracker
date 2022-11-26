@@ -6,15 +6,15 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: angular-app
+      app: book-app
   template:
     metadata:
       labels:
-        app: angular-app
+        app: book-app
     spec:
       containers:
         - name: my-angular-app
-          image: khuramshah/book-tracker:15
+          image: khuramshah/book-tracker:18
           imagePullPolicy: Always
           ports:
             - containerPort: 8085
@@ -23,15 +23,27 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: angular-app-svc
-  namespace: default
+  name: book-app-svc
 spec:
-#  selector:
-#    app: angular-app
-#  ports:
-#    - protocol: TCP
-#      port: 8085
-#      targetPort: 8085
-#  type: LoadBalancer
-  type: ExternalName
-  externalName: my.poc.example.com
+  selector:
+    app: book-app
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: 8085
+  type: LoadBalancer
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: angular-app-svc
+#  namespace: default
+#spec:
+##  selector:
+##    app: angular-app
+##  ports:
+##    - protocol: TCP
+##      port: 8085
+##      targetPort: 8085
+##  type: LoadBalancer
+#  type: ExternalName
+#  externalName: my.poc.example.com

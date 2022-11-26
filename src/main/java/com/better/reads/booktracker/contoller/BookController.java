@@ -16,7 +16,7 @@ public class BookController {
     @Autowired
     BookService booksService;
 
-    @GetMapping()
+    @GetMapping("/")
     public String tet(){
         return "Application running ......";
     }
