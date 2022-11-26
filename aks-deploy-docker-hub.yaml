@@ -6,11 +6,11 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: book-app
+      app: angular-app
   template:
     metadata:
       labels:
-        app: book-app
+        app: angular-app
     spec:
       containers:
         - name: my-angular-app
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: book-app-svc
+  name: angular-app-svc
 spec:
   selector:
-    app: book-app
+    app: angular-app
   ports:
     - protocol: TCP
       port: 8085
