@@ -67,7 +67,7 @@ steps:
     namespace: 'default'
     command: 'apply'
     useConfigurationFile: true
-    configuration: '$(System.DefaultWorkingDirectory)/_khuram-shehzad-confiz.book-tracker/drop-build/aks-deploy-docker-hub.yaml'
+    configuration: '/vsts/work/1/a/drop-build/aks-deploy-docker-hub.yaml'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Azure Container Registry'
 # - task: Kubernetes@1
