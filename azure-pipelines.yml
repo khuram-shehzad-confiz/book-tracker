@@ -33,6 +33,8 @@ steps:
       Dockerfile: '**/Dockerfile'
       tags: |
         $(tag)
+        $(Build.SourceVersion)
+        latest
   - task: CopyFiles@2
     # displayName:''
     inputs:
@@ -83,7 +85,7 @@ steps:
       namespace: 'default'
       command: 'apply'
       useConfigurationFile: true
-      configuration: '/home/vsts/work/1/a/drop-build/aks-deploy-docker-hub.yaml'
+      configuration: '$(System.ArtifactsDirectory)/drop-build/aks-deploy-docker-hub.yaml'
       secretType: 'dockerRegistry'
       containerRegistryType: 'Azure Container Registry'
 
