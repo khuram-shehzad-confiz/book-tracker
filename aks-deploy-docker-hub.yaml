@@ -17,7 +17,7 @@ spec:
           image: khuramshah/book-tracker:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8085
+            - containerPort: 8086
 # service type loadbalancer
 ---
 apiVersion: v1
@@ -29,8 +29,8 @@ spec:
     app: book-app
   ports:
     - protocol: TCP
-      port: 8085
-      targetPort: 8085
+      port: 8086
+      targetPort: 8086
   type: LoadBalancer
 #apiVersion: v1
 #kind: Service
