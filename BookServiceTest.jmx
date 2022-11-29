@@ -262,7 +262,7 @@
           </HeaderManager>
           <hashTree/>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-            <stringProp name="filename">C:/Users/khuram.shehzad/Desktop/MOCK_DATA.csv</stringProp>
+            <stringProp name="filename">MOCK_DATA.csv</stringProp>
             <stringProp name="fileEncoding"></stringProp>
             <stringProp name="variableNames">bookName,author,price</stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
