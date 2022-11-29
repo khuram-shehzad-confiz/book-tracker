@@ -90,7 +90,7 @@ steps:
       jmeterVersion: '5.2.1'
   - task: CmdLine@2
     inputs:
-     script: 'jmeter -jjmeter.save.saveservice.output_format=xml -n -t BookServiceTest.jmx -l resultes01.jtl -e -o report01'
+     script: 'jmeter -n -t BookServiceTest.jmx -l resultes01.jtl -e -o resultReport'
   - task: CmdLine@2
     inputs:
       script: |
@@ -98,14 +98,15 @@ steps:
         
         echo ' $(Build.SourcesDirectory)'
         ls  $(Build.SourcesDirectory)
-        echo End of ls
-        echo $(System.ArtifactsDirectory)
-        echo End of ArtifactsDirectory
-        echo '$(System.ArtifactsDirectory)'
-        echo End of ls ArtifactsDirectory
+        echo 'System.ArtifactsDirectory'
         ls $(System.ArtifactsDirectory)
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(Build.SourcesDirectory)'
+      PathtoPublish: '$(Build.SourcesDirectory)/resultReport'
+      ArtifactName: 'load-test'
+      publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/resultes01.jtl'
       ArtifactName: 'load-test'
       publishLocation: 'Container'
