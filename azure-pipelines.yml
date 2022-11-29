@@ -33,15 +33,12 @@ steps:
       Dockerfile: '**/Dockerfile'
       tags: |
         $(tag)
-        $(Build.SourceVersion)
         latest
   - task: CopyFiles@2
-    # displayName:''
     inputs:
       Contents: '*.yaml'
       TargetFolder: $(build.artifactstagingdirectory)
   - task: CopyFiles@2
-    # displayName:''
     inputs:
       Contents: '*.jmx'
       TargetFolder: $(build.artifactstagingdirectory)
