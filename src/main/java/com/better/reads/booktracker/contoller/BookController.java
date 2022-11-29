@@ -18,7 +18,7 @@ public class BookController {
 
     @GetMapping("/")
     public String tet(){
-        return "Application running ...... :) ";
+        return "Application running ...... with Build.BuildId :) ";
     }
     @GetMapping("/book")
     private ResponseEntity<List<Book>> getAllBooks() {
