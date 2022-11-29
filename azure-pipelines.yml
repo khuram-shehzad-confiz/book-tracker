@@ -13,27 +13,27 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  # - task: Maven@3
-  #   inputs:
-  #     mavenPomFile: 'pom.xml'
-  #     goals: 'clean install'
-  #     publishJUnitResults: true
-  #     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-  #     javaHomeOption: 'JDKVersion'
-  #     mavenVersionOption: 'Default'
-  #     mavenAuthenticateFeed: false
-  #     effectivePomSkip: false
-  #     sonarQubeRunAnalysis: false
-  # - task: Docker@2
-  #   displayName: build and Push image
-  #   inputs:
-  #     containerRegistry: 'khuramshah89 docker hub'
-  #     repository: 'khuramshah/book-tracker'
-  #     command: 'buildAndPush'
-  #     Dockerfile: '**/Dockerfile'
-  #     tags: |
-  #       $(tag)
-  #       latest
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean install'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      javaHomeOption: 'JDKVersion'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
+  - task: Docker@2
+    displayName: build and Push image
+    inputs:
+      containerRegistry: 'khuramshah89 docker hub'
+      repository: 'khuramshah/book-tracker'
+      command: 'buildAndPush'
+      Dockerfile: '**/Dockerfile'
+      tags: |
+        $(tag)
+        latest
   - task: CopyFiles@2
     inputs:
       Contents: '*.yaml'
@@ -72,19 +72,19 @@ steps:
         # Write your commands here
         
         echo '$(System.ArtifactsDirectory)'
-  # - task: Kubernetes@1
-  #   inputs:
-  #     connectionType: 'Azure Resource Manager'
-  #     azureSubscriptionEndpoint: 'Azure service connection poc'
-  #     azureResourceGroup: 'poc'
-  #     kubernetesCluster: 'pocAKSCluster'
-  #     useClusterAdmin: true
-  #     namespace: 'default'
-  #     command: 'apply'
-  #     useConfigurationFile: true
-  #     configuration: '$(System.ArtifactsDirectory)/drop-build/aks-deploy-docker-hub.yaml'
-  #     secretType: 'dockerRegistry'
-  #     containerRegistryType: 'Azure Container Registry'
+  - task: Kubernetes@1
+    inputs:
+      connectionType: 'Azure Resource Manager'
+      azureSubscriptionEndpoint: 'Azure service connection poc'
+      azureResourceGroup: 'poc'
+      kubernetesCluster: 'pocAKSCluster'
+      useClusterAdmin: true
+      namespace: 'default'
+      command: 'apply'
+      useConfigurationFile: true
+      configuration: '$(System.ArtifactsDirectory)/drop-build/aks-deploy-docker-hub.yaml'
+      secretType: 'dockerRegistry'
+      containerRegistryType: 'Azure Container Registry'
   - task: JMeterInstaller@0
     inputs:
       jmeterVersion: '5.2.1'
