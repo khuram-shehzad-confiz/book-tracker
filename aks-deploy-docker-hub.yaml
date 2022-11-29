@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-ak-deployment
+  name: my-book-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: angular-app
+      app: book-app
   template:
     metadata:
       labels:
-        app: angular-app
+        app: book-app
     spec:
       containers:
-        - name: my-angular-app
+        - name: my-book-app
           image: khuramshah/book-tracker:latest
           imagePullPolicy: Always
           ports:
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: angular-app-svc
+  name: book-app-svc
 spec:
   selector:
-    app: angular-app
+    app: book-app
   ports:
     - protocol: TCP
       port: 8085
