@@ -96,10 +96,16 @@ steps:
       script: |
         echo Write your commands here
         
-        echo 'ls'
+        echo ' $(Build.SourcesDirectory)'
+        ls  $(Build.SourcesDirectory)
         echo End of ls
         echo $(System.ArtifactsDirectory)
         echo End of ArtifactsDirectory
         echo '$(System.ArtifactsDirectory)'
         echo End of ls ArtifactsDirectory
-        echo 'ls $(System.ArtifactsDirectory)'
+        ls $(System.ArtifactsDirectory)
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)'
+      ArtifactName: 'load-test'
+      publishLocation: 'Container'
