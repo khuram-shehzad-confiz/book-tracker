@@ -13,17 +13,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - task: Maven@3
-    inputs:
-      mavenPomFile: 'pom.xml'
-      goals: 'clean install'
-      publishJUnitResults: true
-      testResultsFiles: '**/surefire-reports/TEST-*.xml'
-      javaHomeOption: 'JDKVersion'
-      mavenVersionOption: 'Default'
-      mavenAuthenticateFeed: false
-      effectivePomSkip: false
-      sonarQubeRunAnalysis: false
+  # - task: Maven@3
+  #   inputs:
+  #     mavenPomFile: 'pom.xml'
+  #     goals: 'clean install'
+  #     publishJUnitResults: true
+  #     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+  #     javaHomeOption: 'JDKVersion'
+  #     mavenVersionOption: 'Default'
+  #     mavenAuthenticateFeed: false
+  #     effectivePomSkip: false
+  #     sonarQubeRunAnalysis: false
   - task: Docker@2
     displayName: build and Push image
     inputs:
@@ -36,7 +36,7 @@ steps:
   - task: CopyFiles@2
     # displayName:''
     inputs:
-      Contents: '*.yaml'
+      Contents: '*.yaml *.jmx'
       TargetFolder: $(build.artifactstagingdirectory)
   - task: PublishBuildArtifacts@1
     inputs:
@@ -70,14 +70,5 @@ steps:
       configuration: '/home/vsts/work/1/a/drop-build/aks-deploy-docker-hub.yaml'
       secretType: 'dockerRegistry'
       containerRegistryType: 'Azure Container Registry'
-  # - task: Kubernetes@1
-  #   inputs:
-  #     connectionType: 'Kubernetes Service Connection'
-  #     kubernetesServiceEndpoint: 'k8sServiceConnection poc'
-  #     namespace: 'default'
-  #     command: 'apply'
-  #     useConfigurationFile: true
-  #     configuration: '$(System.DefaultWorkingDirectory)/_khuram-shehzad-confiz.book-tracker/drop-build/aks-deploy-docker-hub.yaml'
-  #     secretType: 'dockerRegistry'
-  #     containerRegistryType: 'Azure Container Registry'
+
  
