@@ -85,28 +85,28 @@ steps:
       configuration: '$(System.ArtifactsDirectory)/drop-build/aks-deploy-docker-hub.yaml'
       secretType: 'dockerRegistry'
       containerRegistryType: 'Azure Container Registry'
-#  - task: JMeterInstaller@0
-#    inputs:
-#      jmeterVersion: '5.2.1'
-#  - task: CmdLine@2
-#    inputs:
-#     script: 'jmeter -n -t BookServiceTest.jmx -l resultes01.jtl -e -o resultReport'
-#  - task: CmdLine@2
-#    inputs:
-#      script: |
-#        echo Write your commands here
-#
-#        echo ' $(Build.SourcesDirectory)'
-#        ls  $(Build.SourcesDirectory)
-#        echo 'System.ArtifactsDirectory'
-#        ls $(System.ArtifactsDirectory)
-#  - task: PublishBuildArtifacts@1
-#    inputs:
-#      PathtoPublish: '$(Build.SourcesDirectory)/resultReport'
-#      ArtifactName: 'load-test'
-#      publishLocation: 'Container'
-#  - task: PublishBuildArtifacts@1
-#    inputs:
-#      PathtoPublish: '$(Build.SourcesDirectory)/resultes01.jtl'
-#      ArtifactName: 'load-test'
-#      publishLocation: 'Container'
+  - task: JMeterInstaller@0
+    inputs:
+      jmeterVersion: '5.2.1'
+  - task: CmdLine@2
+    inputs:
+     script: 'jmeter -n -t BookServiceTest.jmx -l resultes01.jtl -e -o resultReport'
+  - task: CmdLine@2
+    inputs:
+      script: |
+        echo Write your commands here
+
+        echo ' $(Build.SourcesDirectory)'
+        ls  $(Build.SourcesDirectory)
+        echo 'System.ArtifactsDirectory'
+        ls $(System.ArtifactsDirectory)
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/resultReport'
+      ArtifactName: 'load-test'
+      publishLocation: 'Container'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/resultes01.jtl'
+      ArtifactName: 'load-test'
+      publishLocation: 'Container'
